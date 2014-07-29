@@ -1,6 +1,8 @@
 main: 1
 charset: 'UTF-8'
 show_errors: 1
+logger: "capture"
+startup_info: 0
 
 application:
    some_feature: foo

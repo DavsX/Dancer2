@@ -1,4 +1,6 @@
 log: "info"
+logger: "capture"
+startup_info: 0
 
 plugins:
   "t::lib::FooPlugin":
