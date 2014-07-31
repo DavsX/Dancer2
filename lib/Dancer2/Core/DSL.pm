@@ -380,39 +380,105 @@ sub send_error {
 #
 
 sub from_json {
-    shift; # remove first element
+    my $self = shift;
     require 'Dancer2/Serializer/JSON.pm';
-    Dancer2::Serializer::JSON::from_json(@_);
+
+    my $serializer = Dancer2::Serializer::JSON->new;
+    my $result = $serializer->deserialize(@_);
+
+    if ($serializer->has_error) {
+        $self->app->log(
+            core => "Failed to deserialize the request : " .
+                    $serializer->error
+        );
+    }
+
+    return $result;
 }
 
 sub to_json {
-    shift; # remove first element
+    my $self = shift;
     require 'Dancer2/Serializer/JSON.pm';
-    Dancer2::Serializer::JSON::to_json(@_);
+
+    my $serializer = Dancer2::Serializer::JSON->new;
+    my $result = $serializer->serialize(@_);
+
+    if ($serializer->has_error) {
+        $self->app->log(
+            core => "Failed to serialize the request : " .
+                    $serializer->error
+        );
+    }
+
+    return $result;
 }
 
 sub from_yaml {
     shift; # remove first element
     require 'Dancer2/Serializer/YAML.pm';
-    Dancer2::Serializer::YAML::from_yaml(@_);
+
+    my $serializer = Dancer2::Serializer::YAML->new;
+    my $result = $serializer->deserialize(@_);
+
+    if ($serializer->has_error) {
+        $self->app->log(
+            core => "Failed to deserialize the request : " .
+                    $serializer->error
+        );
+    }
+
+    return $result;
 }
 
 sub to_yaml {
     shift; # remove first element
     require 'Dancer2/Serializer/YAML.pm';
-    Dancer2::Serializer::YAML::to_yaml(@_);
+
+    my $serializer = Dancer2::Serializer::YAML->new;
+    my $result = $serializer->serialize(@_);
+
+    if ($serializer->has_error) {
+        $self->app->log(
+            core => "Failed to serialize the request : " .
+                    $serializer->error
+        );
+    }
+
+    return $result;
 }
 
 sub from_dumper {
     shift; # remove first element
     require 'Dancer2/Serializer/Dumper.pm';
-    Dancer2::Serializer::Dumper::from_dumper(@_);
+
+    my $serializer = Dancer2::Serializer::Dumper->new;
+    my $result = $serializer->deserialize(@_);
+
+    if ($serializer->has_error) {
+        $self->app->log(
+            core => "Failed to deserialize the request : " .
+                    $serializer->error
+        );
+    }
+
+    return $result;
 }
 
 sub to_dumper {
     shift; # remove first element
     require 'Dancer2/Serializer/Dumper.pm';
-    Dancer2::Serializer::Dumper::to_dumper(@_);
+
+    my $serializer = Dancer2::Serializer::Dumper->new;
+    my $result = $serializer->serialize(@_);
+
+    if ($serializer->has_error) {
+        $self->app->log(
+            core => "Failed to serialize the request : " .
+                    $serializer->error
+        );
+    }
+
+    return $result;
 }
 
 sub log { shift->app->log(@_) }
