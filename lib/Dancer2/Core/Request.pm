@@ -215,10 +215,10 @@ sub host {
 }
 
 # aliases, kept for backward compat
-sub agent                 { shift->user_agent }
-sub remote_address        { shift->address }
-sub forwarded_for_address { shift->env->{'HTTP_X_FORWARDED_FOR'} }
-sub forwarded_host        { shift->env->{'HTTP_X_FORWARDED_HOST'} }
+sub agent                 { $_[0]->user_agent }
+sub remote_address        { $_[0]->address }
+sub forwarded_for_address { $_[0]->env->{'HTTP_X_FORWARDED_FOR'} }
+sub forwarded_host        { $_[0]->env->{'HTTP_X_FORWARDED_HOST'} }
 
 # attributes
 sub address               { $_preq->()->(shift)->address }
